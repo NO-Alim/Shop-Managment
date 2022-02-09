@@ -1,0 +1,23 @@
+@import './globalVariables.scss';
+
+.account {
+  display: flex;
+  transition: color 0.3s ease-in-out;
+
+  &:hover {
+    color: $color-brand;
+  }
+}
+
+.icon,
+.text {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 300;
+
+  @media (max-width: $small) {
+    font-size: 18px;
+  }
+}

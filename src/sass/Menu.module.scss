@@ -1,0 +1,14 @@
+@import './globalVariables.scss';
+span {
+  font-size: 26px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  @media (max-width: $small) {
+    font-size: 20px;
+  }
+}

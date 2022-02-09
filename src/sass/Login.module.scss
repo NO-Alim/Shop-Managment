@@ -1,0 +1,26 @@
+@import '../sass/globalVariables.scss';
+
+.h2 {
+  font-size: 23px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  padding: 0;
+  margin-bottom: $pm-1;
+}
+.form {
+  margin-bottom: $pm-2;
+}
+
+.link {
+  font-size: 15px;
+  text-decoration: underline;
+  margin-bottom: $pm-1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    color: $color-brand;
+  }
+}

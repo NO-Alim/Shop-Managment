@@ -1,0 +1,67 @@
+@import './globalVariables.scss';
+
+.individualSummary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 20px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $pm-5;
+}
+
+.singleSummary {
+  flex: 1;
+  flex-basis: 200px;
+  max-width: 250px;
+  background-color: $color-bg;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: $pm-2;
+  @media (max-width: $small) {
+    min-width: auto;
+    max-width: auto;
+    padding: $pm-1;
+    justify-content: space-between;
+  }
+}
+
+.icon {
+  flex: 1;
+  margin-right: $pm-2;
+
+  i {
+    background-color: rgba($color-border, $alpha: 0.1);
+    padding: 10px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border-radius: 5px;
+    font-size: 22px;
+    cursor: auto;
+  }
+}
+
+.text {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.description {
+  font-size: 18px;
+  color: $color-border;
+  font-weight: lighter;
+  cursor: auto;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  @media (max-width: $medium) {
+    font-size: 25px;
+  }
+}

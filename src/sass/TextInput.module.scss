@@ -1,0 +1,27 @@
+@import './globalVariables.scss';
+
+.textInput {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: $pm-2;
+}
+
+.label {
+  margin-bottom: $pm-1;
+}
+
+.input {
+  //margin-bottom: $pm-1;
+  padding: 10px;
+  background-color: rgba($color-brand, $alpha: 0);
+  color: $color-font;
+  font-size: 16px;
+  border: 1px solid $color-brand;
+  border-radius: 5px;
+  text-transform: capitalize;
+  transition: all 0.3s ease-in-out;
+
+  &:focus {
+    background-color: rgba($color-brand, $alpha: 0.1);
+  }
+}

@@ -1,0 +1,8 @@
+@import './globalVariables.scss';
+
+.grapChart {
+  background-color: $color-bg;
+  padding: $pm-4;
+  border-radius: 5px;
+  overflow: hidden;
+}

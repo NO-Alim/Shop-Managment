@@ -1,0 +1,36 @@
+@import './globalVariables.scss';
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $pm-2;
+
+  @media (max-width: $small) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.shopBranding {
+  h2 {
+    font-size: 24px;
+    font-weight: 400;
+    margin-bottom: $pm-1;
+    letter-spacing: 1px;
+    @media (max-width: $small) {
+      font-size: 20px;
+    }
+  }
+  span {
+    font-size: 16px;
+    color: $color-border;
+    @media (max-width: $small) {
+      font-size: 14px;
+      margin-bottom: $pm-1;
+    }
+  }
+}
+
+.selectDuration {
+}

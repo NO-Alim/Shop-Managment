@@ -1,0 +1,54 @@
+@import './sass/globalVariables.scss';
+
+body {
+  margin: 0;
+  font-family: $all-font;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  max-width: calc(100vw - (100vw - 100%));
+  overflow-x: hidden;
+  background-color: $color-bg;
+  color: $color-font;
+  text-transform: capitalize;
+  a {
+    text-decoration: none;
+    color: $color-font;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  input,
+  button,
+  textarea {
+    &:focus {
+      outline: none;
+    }
+  }
+
+  button {
+    &.blocked {
+      width: 100%;
+    }
+  }
+
+  .sectionContainer {
+    padding: $pm-8 $pm-10;
+    @media (max-width: $medium) {
+      padding: $pm-5 $pm-8;
+    }
+
+    @media (max-width: $small) {
+      padding: $pm-2 $pm-2;
+    }
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    padding: 0;
+    margin: 0;
+  }
+}

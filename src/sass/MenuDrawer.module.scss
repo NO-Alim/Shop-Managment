@@ -1,0 +1,14 @@
+@import '../sass/globalVariables.scss';
+
+.draw {
+  background-color: $color-bg;
+  color: $color-font;
+  padding: $pm-1;
+  min-width: 280px;
+  width: auto;
+  max-width: 350px;
+}
+
+.list {
+  width: 'auto';
+}

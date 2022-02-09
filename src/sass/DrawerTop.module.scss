@@ -1,0 +1,14 @@
+@import './globalVariables.scss';
+
+.drawerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba($color-brand, $alpha: 0.5);
+  padding: $pm-2;
+
+  strong {
+    z-index: -1;
+    opacity: 0;
+  }
+}
