@@ -1,0 +1,120 @@
+@import './globalVariables.scss';
+
+.list {
+  display: flex;
+  padding: 0 $pm-5;
+  margin-bottom: $pm-2;
+  @media (max-width: $small) {
+    padding: $pm-1;
+  }
+}
+
+.table {
+  flex: 1;
+  padding: 0;
+  margin: 0;
+  thead {
+    tr {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-start-start-radius: 10px;
+      border-start-end-radius: 10px;
+      background-color: $color-brand;
+      color: $color-bg;
+    }
+  }
+
+  tbody {
+    &:nth-child(odd) {
+      tr {
+        background-color: rgba($color-brand, $alpha: 0.1);
+      }
+    }
+    &:last-child {
+      tr {
+        border-end-start-radius: 10px;
+        border-end-end-radius: 10px;
+      }
+    }
+  }
+
+  tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    th {
+      flex: 1;
+      padding: 10px;
+      text-align: left;
+      font-size: 18px;
+      font-weight: 400;
+      padding-left: $pm-4;
+      @media (max-width: $small) {
+        padding-left: 2px;
+      }
+    }
+    td {
+      flex: 1;
+      padding: 10px;
+      text-align: left;
+      padding-left: $pm-4;
+      @media (max-width: $small) {
+        padding-left: 2px;
+      }
+    }
+  }
+}
+
+.date {
+  @media (max-width: $medium) {
+    display: none;
+  }
+}
+
+.time {
+  @media (max-width: $medium) {
+    display: none;
+  }
+}
+
+tbody {
+  position: relative;
+  .name {
+    display: flex;
+    gap: $pm-1;
+    align-items: center;
+    font-size: 16px;
+  }
+  .date {
+    font-size: 12px;
+    color: $color-border;
+  }
+  .time {
+    font-size: 12px;
+    color: $color-border;
+  }
+
+  .price {
+    letter-spacing: 1px;
+  }
+
+  .info {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+
+    span {
+      font-size: 18px;
+      cursor: pointer;
+      color: $color-font;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        color: $color-brand;
+      }
+    }
+  }
+}
+
+// add all th and td uniq className

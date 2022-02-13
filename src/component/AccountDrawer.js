@@ -10,6 +10,7 @@ import DrawerTop from './DrawerTop';
 import ForgotPass from './ForgotPass';
 import LogIn from './LogIn';
 import SingUp from './SingUp';
+import User from './User';
 
 const useStyles = makeStyles({
   root: {
@@ -32,7 +33,8 @@ const useStyles = makeStyles({
 
 const AccountDrawer = () => {
   const { accountDrawer, setAccountDrawer } = useNavContext();
-  const { login, singUp, forgotPass } = useGlobalContext();
+  const { login, singUp, forgotPass, currentUser, loading } =
+    useGlobalContext();
   //close Drawer
   const handleCloseBtn = () => {
     setAccountDrawer(!accountDrawer);
@@ -56,9 +58,19 @@ const AccountDrawer = () => {
             <DrawerCloseBtn handleCloseBtn={handleCloseBtn} />
           </DrawerTop>
           <DrawerPaper>
-            {login && <LogIn />}
-            {singUp && <SingUp />}
-            {forgotPass && <ForgotPass />}
+            {!loading && (
+              <>
+                {currentUser ? (
+                  <User />
+                ) : (
+                  <>
+                    {login && <LogIn />}
+                    {singUp && <SingUp />}
+                    {forgotPass && <ForgotPass />}
+                  </>
+                )}
+              </>
+            )}
           </DrawerPaper>
         </>
       </Drawer>

@@ -1,15 +1,39 @@
 import React from 'react';
 import Select from 'react-select';
-const options = [
-  { value: 'month', label: 'Last month' },
-  { value: 'week', label: 'Last Week' },
-  { value: 'Day', label: 'Last Day' },
-];
+const colourStyles = {
+  menuList: (styles) => ({
+    ...styles,
+    background: '#75efff',
+  }),
+  option: (styles, { isFocused, isSelected }) => ({
+    ...styles,
+    color: isFocused ? '#fff' : '#101c31',
+    background: isFocused ? '#101c31' : isSelected ? 'yellow' : undefined,
+    zIndex: 1,
+  }),
+  menu: (base) => ({
+    ...base,
+    zIndex: 100,
+  }),
+  control: (styles) => ({
+    ...styles,
+    background: '#101c31',
+    borderColor: '#75efff',
+  }),
+  placeholder: (styles) => ({
+    ...styles,
+    color: '#ccc',
+  }),
+};
 
-const SelectOption = () => {
+const SelectOption = ({ options, placeholder }) => {
   return (
     <>
-      <Select options={options} />
+      <Select
+        placeholder={placeholder}
+        options={options}
+        styles={colourStyles}
+      />
     </>
   );
 };

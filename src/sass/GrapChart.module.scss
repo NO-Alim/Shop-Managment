@@ -5,4 +5,8 @@
   padding: $pm-4;
   border-radius: 5px;
   overflow: hidden;
+  margin-bottom: $pm-5;
+  @media (max-width: $extraSmall) {
+    padding: $pm-4 5px;
+  }
 }

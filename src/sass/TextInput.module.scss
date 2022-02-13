@@ -25,3 +25,7 @@
     background-color: rgba($color-brand, $alpha: 0.1);
   }
 }
+
+.input[type='email'] {
+  text-transform: none;
+}

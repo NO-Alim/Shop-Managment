@@ -2,7 +2,8 @@ import React from 'react';
 import Chart from 'react-apexcharts';
 import '../sass/apexChart.scss';
 import classes from '../sass/GrapChart.module.scss';
-const GrapChart = () => {
+const GrapChart = ({ height }) => {
+  console.log(height);
   const series = [
     {
       name: 'Total Cost',
@@ -16,7 +17,7 @@ const GrapChart = () => {
   const options = {
     chart: {
       type: 'bar',
-      height: 350,
+      height: height,
     },
     plotOptions: {
       bar: {
@@ -26,13 +27,13 @@ const GrapChart = () => {
       },
     },
     dataLabels: {
-      enabled: true,
+      enabled: false,
       style: {
-        colors: ['#101c31', '#101c31'],
+        //colors: ['#ccc', '#75efff'],
       },
     },
     stroke: {
-      show: true,
+      show: false,
       width: 2,
       colors: ['transparent'],
     },
@@ -56,7 +57,7 @@ const GrapChart = () => {
     },
     fill: {
       opacity: 1,
-      colors: ['#ccc', '#75efff'],
+      //colors: ['#ccc', '#75efff'],
     },
     tooltip: {
       y: {
@@ -73,7 +74,7 @@ const GrapChart = () => {
         options={options}
         series={series}
         type="bar"
-        height={350}
+        height={height}
       />
     </div>
   );

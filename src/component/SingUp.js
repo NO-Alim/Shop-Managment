@@ -6,14 +6,44 @@ import TextInput from './TextInput';
 
 const SingUp = () => {
   const { setSingUp, setForgotPass, setLogin } = useGlobalContext();
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [agree, setAgree] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  //form accountContext
+  const { signupFun } = useGlobalContext();
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      return setError(`password doesn't match.`);
+    }
+
+    try {
+      setError('');
+      setLoading(true);
+
+      await signupFun(email, password, userName);
+    } catch (error) {
+      setLoading(false);
+      setError(`Something error`);
+    }
+  };
   return (
     <div>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={handleSubmit}>
         <h2 className={classes.h2}>Create An Account</h2>
+        <TextInput
+          type="text"
+          name="Name"
+          placeholder="Enter User Name"
+          required
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+        />
         <TextInput
           type="email"
           name="email"
@@ -31,7 +61,7 @@ const SingUp = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <TextInput
-          type="confirmPassword"
+          type="Password"
           name="confirmPassword"
           placeholder="Confirm Password"
           required
@@ -42,6 +72,7 @@ const SingUp = () => {
           Submit
         </Button>
       </form>
+      {error && <p className="accountError">{error}</p>}
       <span
         className={classes.link}
         onClick={() => {

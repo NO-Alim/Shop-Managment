@@ -1,0 +1,118 @@
+@import './globalVariables.scss';
+
+.listHeader {
+  display: flex;
+  gap: $pm-2;
+  //background-color: rgba($color-border, $alpha: 0.1);
+  border-radius: 5px;
+  align-items: center;
+  justify-content: space-between;
+  padding: $pm-1 $pm-5;
+  margin-bottom: $pm-2;
+
+  @media (max-width: $medium) {
+    flex-direction: column;
+  }
+  @media (max-width: $small) {
+    padding: $pm-1;
+  }
+}
+
+.doSomething {
+  flex: 1;
+  display: flex;
+  gap: $pm-2;
+  align-items: center;
+  justify-content: space-between;
+
+  @media (max-width: $medium) {
+    width: 100%;
+  }
+}
+
+.selectCount {
+  span {
+    font-size: 16px;
+    color: $color-brand;
+  }
+}
+
+.icons {
+  display: flex;
+  gap: $pm-2;
+
+  span {
+    color: $color-font;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: $color-brand;
+    }
+    i {
+      font-size: 18px;
+    }
+  }
+}
+
+.userControl {
+  flex: 2;
+  display: flex;
+  gap: $pm-2;
+  align-items: center;
+  justify-content: flex-end;
+  @media (max-width: $medium) {
+    width: 100%;
+    flex: 1;
+    justify-content: space-between;
+  }
+  @media (max-width: $extraSmall) {
+    flex-direction: column;
+  }
+
+  .sort {
+    @media (max-width: $extraSmall) {
+      flex: 1;
+      width: 100%;
+    }
+  }
+
+  form {
+    border: 1px solid $color-brand;
+    background-color: rgba($color-brand, $alpha: 0.1);
+    border-radius: 5px;
+    display: flex;
+
+    @media (max-width: $extraSmall) {
+      flex: 1;
+      width: 100%;
+    }
+    button {
+      padding-left: $pm-1;
+      border: none;
+      background-color: transparent;
+      color: $color-font;
+
+      &:focus {
+        outline: none;
+      }
+    }
+    input {
+      flex: 1;
+      font-size: 16px;
+      text-transform: capitalize;
+      transition: all 0.3s ease-in-out;
+      padding: 10px;
+      border: none;
+      background-color: transparent;
+      color: $color-font;
+      width: 100%;
+      max-width: 150px;
+      @media (max-width: $extraSmall) {
+        max-width: auto;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

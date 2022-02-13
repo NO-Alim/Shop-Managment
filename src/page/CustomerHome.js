@@ -1,5 +1,7 @@
 import React from 'react';
-import GrapChart from '../CstmrHomeComponent/GrapChart';
+import AddProduct from '../CstmrHomeComponent/AddProduct';
+import Chart from '../CstmrHomeComponent/Chart';
+import DataLists from '../CstmrHomeComponent/DataLists';
 import Header from '../CstmrHomeComponent/Header';
 import IndividualSummary from '../CstmrHomeComponent/IndividualSummary';
 import classes from '../sass/CustomerHome.module.scss';
@@ -9,7 +11,9 @@ const CustomerHome = () => {
       <div className="sectionContainer">
         <Header />
         <IndividualSummary />
-        <GrapChart />
+        <Chart />
+        <DataLists />
+        <AddProduct />
       </div>
     </main>
   );

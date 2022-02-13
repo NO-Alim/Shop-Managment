@@ -4,13 +4,28 @@ import classes from '../sass/Login.module.scss';
 import Button from './Button';
 import TextInput from './TextInput';
 const LogIn = () => {
-  const { setSingUp, setForgotPass, setLogin } = useGlobalContext();
+  const { setSingUp, setForgotPass, setLogin, loginFun } = useGlobalContext();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      setError('');
+      setLoading(true);
+      await loginFun(email, password);
+    } catch (error) {
+      setLoading(false);
+      setError('failed to login!!');
+    }
+  };
   return (
     <div>
       <h2 className={classes.h2}>Login</h2>
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={handleSubmit}>
         <TextInput
           type="email"
           name="email"
@@ -30,6 +45,7 @@ const LogIn = () => {
         <Button exClass="blocked" type="submit">
           Login
         </Button>
+        {error && <p className="accountError">{error}</p>}
       </form>
       <span
         className={classes.link}
