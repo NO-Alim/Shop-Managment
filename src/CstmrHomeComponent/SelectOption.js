@@ -26,13 +26,14 @@ const colourStyles = {
   }),
 };
 
-const SelectOption = ({ options, placeholder }) => {
+const SelectOption = ({ options, placeholder, ...rest }) => {
   return (
     <>
       <Select
         placeholder={placeholder}
         options={options}
         styles={colourStyles}
+        {...rest}
       />
     </>
   );

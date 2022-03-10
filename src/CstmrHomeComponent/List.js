@@ -1,44 +1,46 @@
 import React, { useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import Modal from 'react-modal';
+import EditModal from '../component/EditModal';
+import { useGlobalContext } from '../hook/AccountContext';
 import classes from '../sass/List.module.scss';
-const fetchData = [
-  {
-    name: 'apple',
-    date: '10-02-2022',
-    time: '08:00pm',
-    price: 23,
-    id: 1,
-    type: 'income',
+
+const customStyles = {
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+    background: '#101c31',
   },
-  {
-    name: 'orange',
-    date: '10-02-2022',
-    time: '09:00pm',
-    price: 21,
-    id: 2,
-    type: 'expense',
-  },
-  {
-    name: 'banana',
-    date: '10-02-2022',
-    time: '10:00pm',
-    price: 11,
-    id: 3,
-    type: 'income',
-  },
-  {
-    name: 'banana',
-    date: '10-02-2022',
-    time: '10:00pm',
-    price: 11,
-    id: 3,
-    type: 'expense',
-  },
-];
+};
 
 const List = () => {
-  const [data, setData] = useState(fetchData);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [currentItem, setCurrentItem] = useState();
+
+  const { data, Delete, checkedItems, setCheckedItems } = useGlobalContext();
+  //const sec = 1646594396;
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+  const handleChecked = (e) => {
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      setCheckedItems([...checkedItems, e.target.value]);
+    } else {
+      const filteredArr = checkedItems.filter((x) => x !== e.target.value);
+      setCheckedItems(filteredArr);
+    }
+  };
+
   return (
     <div className={classes.list}>
       <table className={classes.table}>
@@ -51,36 +53,69 @@ const List = () => {
             <th className={classes.info}>More</th>
           </tr>
         </thead>
-        {data.map((item, ind) => {
-          return (
-            <tbody key={ind}>
-              <tr>
-                <td className={classes.name}>
-                  <span>
-                    <input type="checkbox" />{' '}
-                  </span>{' '}
-                  {item.name}
-                </td>
-                <td className={classes.date}>{item.date}</td>
-                <td className={classes.time}>{item.time}</td>
-                <td className={classes.price}>${item.price}</td>
-                <td className={classes.info}>
-                  <span>
-                    <i>
-                      <FaEdit />
-                    </i>
-                  </span>
-                  <span>
-                    <i>
-                      <RiDeleteBin6Line />
-                    </i>
-                  </span>
-                </td>
-              </tr>
-            </tbody>
-          );
-        })}
+        {data &&
+          data.map((item, ind) => {
+            return (
+              <tbody key={ind}>
+                <tr>
+                  <td className={classes.name}>
+                    <span>
+                      <input
+                        type="checkbox"
+                        value={item.time.seconds}
+                        onChange={handleChecked}
+                      />{' '}
+                    </span>{' '}
+                    {item.name}
+                  </td>
+                  <td className={classes.date}>{item.date}</td>
+                  <td className={classes.time}>
+                    {new Date(item.time.seconds * 1000).getHours()}:
+                    {new Date(item.time.seconds * 1000).getMinutes()}
+                  </td>
+                  <td
+                    className={`${classes.price} ${
+                      item.expanse ? 'ex-price' : ''
+                    }`}
+                  >
+                    {`${item.expanse ? '-' : ' '}`}$
+                    {parseFloat(item.price).toFixed(2)}
+                  </td>
+                  <td className={classes.info}>
+                    <span
+                      onClick={() => {
+                        openModal();
+                        setCurrentItem(item);
+                      }}
+                    >
+                      <i>
+                        <FaEdit />
+                      </i>
+                    </span>
+
+                    <span onClick={() => Delete(item.time.seconds)}>
+                      <i>
+                        <RiDeleteBin6Line />
+                      </i>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            );
+          })}
       </table>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        style={customStyles}
+        contentLabel="Example"
+        ariaHideApp={false}
+        className={classes.modal}
+      >
+        <div className={classes.content}>
+          <EditModal currentItem={currentItem} />
+        </div>
+      </Modal>
     </div>
   );
 };

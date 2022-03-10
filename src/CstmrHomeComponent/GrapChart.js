@@ -3,7 +3,6 @@ import Chart from 'react-apexcharts';
 import '../sass/apexChart.scss';
 import classes from '../sass/GrapChart.module.scss';
 const GrapChart = ({ height }) => {
-  console.log(height);
   const series = [
     {
       name: 'Total Cost',

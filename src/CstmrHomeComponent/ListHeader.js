@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FiPrinter, FiSearch } from 'react-icons/fi';
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import { useGlobalContext } from '../hook/AccountContext';
 import classes from '../sass/ListHeader.module.scss';
 import SelectOption from './SelectOption';
 const ListHeader = () => {
@@ -11,11 +12,21 @@ const ListHeader = () => {
 
   const [selectCount, setSelectCount] = useState(0);
   const [searchText, setSearchText] = useState('');
+  const { checkedItems, setCheckedItems, DeleteList } = useGlobalContext();
+
+  const handleDelete = async () => {
+    //delete from server
+    DeleteList(checkedItems);
+    //setArray 0
+    setCheckedItems([]);
+  };
   return (
     <div className={classes.listHeader}>
       <div className={classes.doSomething}>
         <div className={classes.selectCount}>
-          <span>{selectCount} Product Selected</span>
+          <span>
+            {`${checkedItems ? checkedItems.length : 0}`} Product Selected
+          </span>
         </div>
         <div className={classes.icons}>
           <span className="icon">
@@ -23,7 +34,7 @@ const ListHeader = () => {
               <FiPrinter />
             </i>
           </span>
-          <span className="icon">
+          <span className="icon" onClick={handleDelete}>
             <i>
               <RiDeleteBin6Line />
             </i>

@@ -7,8 +7,7 @@ import classes from '../sass/Account.module.scss';
 const Account = () => {
   //should be come out from firebase
   const { setAccountDrawer } = useNavContext();
-  const { currentUser } = useGlobalContext();
-  console.log(currentUser);
+  const { currentUser, loading } = useGlobalContext();
   return (
     <div className={classes.accounts}>
       {currentUser ? (
@@ -17,9 +16,7 @@ const Account = () => {
             <FaUserCircle />
             &nbsp;
           </span>
-          <span className={classes.text}>
-            {currentUser.displayName.split(' ')[0]}
-          </span>
+          <span className={classes.text}>{currentUser.displayName}</span>
         </div>
       ) : (
         <div className={classes.account} onClick={() => setAccountDrawer(true)}>

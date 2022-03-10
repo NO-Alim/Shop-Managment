@@ -6,7 +6,7 @@ const TextInput = ({ name, ...rest }) => {
       <label htmlFor={name} className={classes.label}>
         {name}
       </label>
-      <input {...rest} className={classes.input} />
+      <input name={name} {...rest} className={classes.input} />
     </div>
   );
 };
