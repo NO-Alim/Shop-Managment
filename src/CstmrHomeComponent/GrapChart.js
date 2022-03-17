@@ -1,16 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Chart from 'react-apexcharts';
+import { useGlobalContext } from '../hook/AccountContext';
 import '../sass/apexChart.scss';
 import classes from '../sass/GrapChart.module.scss';
 const GrapChart = ({ height }) => {
+  const { data, loading } = useGlobalContext();
+
+  const [cost, setCost] = useState([]);
+  const [sell, setSell] = useState([]);
+  const [month, setMonth] = useState([]);
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      const x = data.map((obj) =>
+        new Date(obj.time.seconds * 1000).toLocaleString('default', {
+          month: 'short',
+          year: '2-digit',
+        })
+      );
+
+      //last 10months name with years
+      var today = new Date();
+      var d;
+      var monthLc = [];
+      for (var i = 10; i > 0; i -= 1) {
+        //here should be latest seconds instade of today.
+        d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+
+        const x = d.toLocaleString('default', {
+          month: 'short',
+          year: '2-digit',
+        });
+
+        monthLc.push(x);
+      }
+      setMonth(monthLc.reverse());
+
+      //
+      // const xxxxxx = data.filter(
+      //   (obj) =>
+      //     new Date(obj.time.seconds * 1000).toLocaleString('default', {
+      //       year: '2-digit',
+      //     }) > month[month.length - 1].slice(-2)
+      // );
+      // console.log(xxxxxx);
+    }
+  }, [data]);
+
   const series = [
     {
       name: 'Total Cost',
-      data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+      //data: [12, 44, 55, 57, 56, 61, 58, 63, 60, 66],
+      data: cost,
     },
     {
       name: 'Total Sell',
-      data: [76, 85, 101, 98, 87, 105, 91, 120, 94],
+      //data: [33, 76, 85, 101, 98, 87, 105, 91, 120, 94],
+      data: sell,
     },
   ];
   const options = {
@@ -37,17 +83,20 @@ const GrapChart = ({ height }) => {
       colors: ['transparent'],
     },
     xaxis: {
-      categories: [
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-      ],
+      // categories: [
+      //   'Jan',
+      //   'Feb',
+      //   'Mar',
+      //   'Apr',
+      //   'May',
+      //   'Jun',
+      //   'Jul',
+      //   'Aug',
+      //   'Sep',
+      //   'Oct',
+      // ],
+
+      categories: month,
     },
     yaxis: {
       title: {

@@ -8,17 +8,77 @@ import classes from '../sass/IndividualSummary.module.scss';
 //TotalEarning = (SellProduct - ProductLive) - BuyProduct
 
 const IndividualSummary = () => {
-  const { data } = useGlobalContext();
+  const { data, duration, loadinng } = useGlobalContext();
   const [income, setIncome] = useState(0);
   const [expense, setExpense] = useState(0);
-  const [duration, setDuration] = useState(localStorage.getItem('duration'));
+
+  // const filterByDuration = (e) =>{
+  //   const filterData = data.map((item) =>{
+  //     let dur;
+  //     if () {
+
+  //     }
+  //   })
+  // }
 
   useEffect(() => {
     const date = new Date();
-    console.log(date);
-    if (data) {
-      const filterIncome = data.filter((obj) => obj.income);
-      const filterExpense = data.filter((obj) => !obj.income);
+    let filterData;
+
+    //const day = date.getDate();
+    //const month = date.getMonth();
+
+    // let dur;
+
+    // switch (duration) {
+    //   case 'day':
+    //     dur = date.getDate();
+    //     break;
+    //   case 'month':
+    //     dur = date.getMonth();
+    //     break;
+    //   default:
+    //     dur = null;
+    //     break;
+    // }
+
+    //1st step filter data when selected value change
+    if (data && data.length > 0) {
+      const year = date.getFullYear();
+      const day = date.getDate();
+      const month = date.getMonth();
+
+      if (duration === 'month') {
+        filterData = data.filter(
+          (obj) =>
+            new Date(obj.time.seconds * 1000).getMonth() === month &&
+            new Date(obj.time.seconds * 1000).getFullYear() === year
+        );
+      }
+
+      if (duration === 'day') {
+        filterData = data.filter(
+          (obj) =>
+            new Date(obj.time.seconds * 1000).getDate() === day &&
+            new Date(obj.time.seconds * 1000).getMonth() === month &&
+            new Date(obj.time.seconds * 1000).getFullYear() === year
+        );
+      }
+
+      if (duration === 'year') {
+        //for year
+
+        filterData = data.filter(
+          (obj) => new Date(obj.time.seconds * 1000).getFullYear() === year
+        );
+      }
+    }
+
+    //2nd step filteerData come from 1st step and now this divided by two category 1.income 2.expense
+    //and then count all;
+    if (filterData) {
+      const filterIncome = filterData.filter((obj) => obj.income);
+      const filterExpense = filterData.filter((obj) => !obj.income);
 
       if (filterIncome) {
         setIncome(
@@ -34,6 +94,16 @@ const IndividualSummary = () => {
             .reduce((prev, curr) => prev + curr, 0)
         );
       }
+    }
+
+    if (!data) {
+      setExpense(0);
+      setIncome(0);
+    }
+
+    if (data && data.length === 0) {
+      setExpense(0);
+      setIncome(0);
     }
   }, [data, duration]);
 

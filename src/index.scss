@@ -52,12 +52,75 @@ body {
     margin: 0;
   }
 
+  //error
   .accountError {
     font-size: 18px;
     color: red;
   }
 
+  //table expense data
   .ex-price {
     color: red;
+  }
+}
+
+//pagination
+
+.listpagination {
+  margin-top: 20px;
+  ul {
+    max-height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding-inline-start: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+
+    .pagination-item {
+      display: none;
+
+      &.block {
+        display: block;
+      }
+    }
+
+    .paginate-div {
+      background-color: $color-font;
+      color: $color-bg;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      &.active-pg {
+        background-color: $color-border;
+        cursor: no-drop;
+        opacity: 0.5;
+      }
+    }
+
+    .prevBtn,
+    .nextBtn {
+      cursor: pointer;
+
+      &.de-active {
+        cursor: no-drop;
+        i {
+          color: $color-border;
+          opacity: 0.5;
+        }
+      }
+      i {
+        color: $color-font;
+        font-size: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   }
 }

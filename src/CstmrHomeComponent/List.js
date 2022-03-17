@@ -5,6 +5,7 @@ import Modal from 'react-modal';
 import EditModal from '../component/EditModal';
 import { useGlobalContext } from '../hook/AccountContext';
 import classes from '../sass/List.module.scss';
+import ListPagination from './ListPagination';
 
 const customStyles = {
   content: {
@@ -22,9 +23,17 @@ const List = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(10);
   const { data, Delete, checkedItems, setCheckedItems } = useGlobalContext();
-  //const sec = 1646594396;
 
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
+  const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   const openModal = () => {
     setIsOpen(true);
   };
@@ -54,7 +63,7 @@ const List = () => {
           </tr>
         </thead>
         {data &&
-          data.map((item, ind) => {
+          currentPosts.map((item, ind) => {
             return (
               <tbody key={ind}>
                 <tr>
@@ -66,9 +75,16 @@ const List = () => {
                         onChange={handleChecked}
                       />{' '}
                     </span>{' '}
-                    {item.name}
+                    {item.name.replace(/^(.{5}[^\s]*).*/, '$1') + ''}...
                   </td>
-                  <td className={classes.date}>{item.date}</td>
+                  <td className={classes.date}>
+                    {new Date(item.time.seconds * 1000).getDate()}-
+                    {new Date(item.time.seconds * 1000)
+                      .toLocaleString('default', {
+                        month: 'long',
+                      })
+                      .substring(0, 3)}
+                  </td>
                   <td className={classes.time}>
                     {new Date(item.time.seconds * 1000).getHours()}:
                     {new Date(item.time.seconds * 1000).getMinutes()}
@@ -104,6 +120,12 @@ const List = () => {
             );
           })}
       </table>
+      <ListPagination
+        postPerPage={postPerPage}
+        totalPosts={data.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      />
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}

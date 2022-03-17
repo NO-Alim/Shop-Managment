@@ -31,6 +31,7 @@ const AppProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
   const [data, setData] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
+  const [duration, setDuration] = useState();
 
   const db = getFirestore();
   const auth = getAuth();
@@ -50,6 +51,11 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     if (!localStorage.getItem('duration')) {
       localStorage.setItem('duration', 'day');
+      setDuration('day');
+    }
+    //
+    if (localStorage.getItem('duration')) {
+      setDuration(localStorage.getItem('duration'));
     }
   }, []);
 
@@ -99,11 +105,12 @@ const AppProvider = ({ children }) => {
       const docRef = doc(db, 'user', user.uid);
 
       try {
-        setLoading(true);
+        //setLoading(true);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-          setData(docSnap.data().data);
+          const x = docSnap.data().data;
+          setData(x.reverse());
         }
         setLoading(false);
       } catch (error) {
@@ -229,6 +236,8 @@ const AppProvider = ({ children }) => {
         setCheckedItems,
         DeleteList,
         queryData,
+        duration,
+        setDuration,
       }}
     >
       {children}

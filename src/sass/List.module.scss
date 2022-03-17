@@ -2,6 +2,7 @@
 
 .list {
   display: flex;
+  flex-direction: column;
   padding: 0 $pm-5;
   margin-bottom: $pm-2;
   @media (max-width: $small) {

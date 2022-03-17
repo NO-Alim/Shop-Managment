@@ -6,18 +6,20 @@ import SelectOption from './SelectOption';
 const Header = () => {
   const options = [
     { value: 'month', label: 'Last month' },
-    { value: 'week', label: 'Last Week' },
+    { value: 'year', label: 'Last year' },
     { value: 'day', label: 'Today Day' },
   ];
 
   const [selectedOption, setSelectedOption] = useState(options[2]);
-  const {} = useGlobalContext();
+  const { setDuration } = useGlobalContext();
 
   const handleSelect = async (e) => {
     setSelectedOption(e);
     localStorage.setItem('duration', e.value);
+    setDuration(e.value);
   };
 
+  //if there is already have localstorage duration setselected value
   useEffect(() => {
     if (localStorage.getItem('duration')) {
       const local = localStorage.getItem('duration');
