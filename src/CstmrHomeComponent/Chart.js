@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useGlobalContext } from '../hook/AccountContext';
 import GrapChart from './GrapChart';
 
 const Chart = () => {
   const [height, setHeight] = useState(350);
+  const { data } = useGlobalContext();
 
   useEffect(() => {
     const resize = () => {
@@ -18,11 +20,7 @@ const Chart = () => {
       window.removeEventListener('resize', resize);
     };
   }, []);
-  return (
-    <>
-      <GrapChart height={height} />
-    </>
-  );
+  return <>{data && data.length > 0 && <GrapChart height={height} />}</>;
 };
 
 export default Chart;

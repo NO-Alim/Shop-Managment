@@ -34,18 +34,50 @@ const GrapChart = ({ height }) => {
 
         monthLc.push(x);
       }
+
       setMonth(monthLc.reverse());
 
-      //
-      // const xxxxxx = data.filter(
-      //   (obj) =>
-      //     new Date(obj.time.seconds * 1000).toLocaleString('default', {
-      //       year: '2-digit',
-      //     }) > month[month.length - 1].slice(-2)
-      // );
-      // console.log(xxxxxx);
+      let expenseData = [];
+      let incomeData = [];
+
+      //map month
+      month.map((str) => {
+        //looping data if include str
+        const xx = data.filter(
+          (obj) =>
+            new Date(obj.time.seconds * 1000).toLocaleString('default', {
+              month: 'short',
+              year: '2-digit',
+            }) === str
+        );
+
+        //console.log(xx);
+        if (xx && xx.length > 0) {
+          //console.log(xx);
+          const filterIncome = xx.filter((obj) => obj.income);
+          const filterExpense = xx.filter((obj) => !obj.income);
+          const income = filterIncome
+            .map((item) => parseFloat(item.price))
+            .reduce((prev, curr) => prev + curr, 0);
+
+          const expense = filterExpense
+            .map((item) => parseFloat(item.price))
+            .reduce((prev, curr) => prev + curr, 0);
+
+          //push every income & expense data to
+          incomeData.push(income);
+          expenseData.push(expense);
+        } else {
+          //if there is no data on this month let add 0
+          incomeData.push(0);
+          expenseData.push(0);
+        }
+      });
+      setSell(incomeData);
+      setCost(expenseData);
+      console.log(sell, cost);
     }
-  }, [data]);
+  }, []);
 
   const series = [
     {
