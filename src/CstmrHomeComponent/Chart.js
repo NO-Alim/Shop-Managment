@@ -4,7 +4,7 @@ import GrapChart from './GrapChart';
 
 const Chart = () => {
   const [height, setHeight] = useState(350);
-  const { data } = useGlobalContext();
+  const { data, currentUser } = useGlobalContext();
 
   useEffect(() => {
     const resize = () => {
