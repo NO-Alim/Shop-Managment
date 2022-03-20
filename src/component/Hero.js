@@ -1,6 +1,11 @@
 import React from 'react';
+import { useGlobalContext } from '../hook/AccountContext';
+import { useNavContext } from '../hook/DrawerContext';
 import classes from '../sass/Hero.module.scss';
 const Hero = () => {
+  const { accountDrawer, setAccountDrawer } = useNavContext();
+  const { setSingUp, setForgotPass, setLogin, loginFun } = useGlobalContext();
+
   return (
     <div>
       <div className={classes.hero}>
@@ -14,8 +19,24 @@ const Hero = () => {
             aspernatur.
           </p>
           <div className={classes.btnGroup}>
-            <button>SingUp</button>
-            <button>logIn</button>
+            <button
+              onClick={() => {
+                setAccountDrawer(true);
+                setSingUp(true);
+                setLogin(false);
+              }}
+            >
+              SingUp
+            </button>
+            <button
+              onClick={() => {
+                setAccountDrawer(true);
+                setLogin(true);
+                setSingUp(false);
+              }}
+            >
+              logIn
+            </button>
           </div>
         </main>
       </div>

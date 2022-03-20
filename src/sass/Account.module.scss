@@ -3,7 +3,7 @@
 .account {
   display: flex;
   transition: color 0.3s ease-in-out;
-
+  cursor: pointer;
   &:hover {
     color: $color-brand;
   }

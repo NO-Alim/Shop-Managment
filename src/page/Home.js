@@ -17,8 +17,8 @@ const Home = () => {
         <>
           <NavProvider>
             <Nav />
+            {currentUser ? <CustomerHome /> : <Hero />}
           </NavProvider>
-          {currentUser ? <CustomerHome /> : <Hero />}
         </>
       )}
     </div>

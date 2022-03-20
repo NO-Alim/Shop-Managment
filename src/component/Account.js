@@ -24,7 +24,7 @@ const Account = () => {
             <FiLogIn />
             &nbsp;
           </span>
-          <span className={classes.text}>LogIn</span>
+          <span className={classes.text}>LogIn/SingUp</span>
         </div>
       )}
     </div>

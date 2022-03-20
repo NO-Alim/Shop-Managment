@@ -81,16 +81,8 @@ const GrapChart = ({ height }) => {
 
   useEffect(() => {
     if (data && data.length > 0) {
-      // const x = data.map((obj) =>
-      //   new Date(obj.time.seconds * 1000).toLocaleString('default', {
-      //     month: 'short',
-      //     year: '2-digit',
-      //   })
-      // );
-      // console.log(x);
-
-      //last 10months name with years
       var today = new Date();
+
       var d;
       var monthLc = [];
       for (var i = 10; i > 0; i -= 1) {
@@ -151,6 +143,27 @@ const GrapChart = ({ height }) => {
     setSell(incomeData);
     setCost(expenseData);
   }, [month]);
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      var today = new Date();
+      const minDate = Math.min.apply(
+        null,
+        data.map((item) => {
+          return item.time.seconds * 1000;
+        })
+      );
+
+      const tenMonthLess = new Date().setMonth(today.getMonth() - 6);
+      const tenDaysLess = new Date().setDate(today.getDate() - 10);
+      const tenHoursLess = new Date().setHours(today.getHours() - 10);
+      const tenMinutesLess = new Date().setMinutes(today.getMinutes() - 10);
+
+      const x = today.getTime();
+
+      console.log(x - minDate);
+    }
+  }, [data]);
   return (
     <div className={classes.grapChart}>
       <Chart

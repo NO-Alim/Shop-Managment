@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useGlobalContext } from '../hook/AccountContext';
+import { useNavContext } from '../hook/DrawerContext';
 import classes from '../sass/Login.module.scss';
 import Button from './Button';
 import TextInput from './TextInput';
 const LogIn = () => {
   const { setSingUp, setForgotPass, setLogin, loginFun } = useGlobalContext();
+  const { setAccountDrawer, accountDrawer } = useNavContext();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,6 +20,7 @@ const LogIn = () => {
       setError('');
       setLoading(true);
       await loginFun(email, password);
+      setAccountDrawer(!accountDrawer);
     } catch (error) {
       setLoading(false);
       setError('failed to login!!');

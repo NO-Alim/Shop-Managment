@@ -7,8 +7,8 @@ const colourStyles = {
   }),
   option: (styles, { isFocused, isSelected }) => ({
     ...styles,
-    color: isFocused ? '#fff' : '#101c31',
-    background: isFocused ? '#101c31' : isSelected ? 'yellow' : undefined,
+    color: isFocused ? '#fff' : isSelected ? '#fff' : '#101c31',
+    background: isFocused ? '#101c31' : isSelected ? '#101c31' : undefined,
     zIndex: 1,
   }),
   menu: (base) => ({
@@ -23,6 +23,10 @@ const colourStyles = {
   placeholder: (styles) => ({
     ...styles,
     color: '#ccc',
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: '#fff',
   }),
 };
 

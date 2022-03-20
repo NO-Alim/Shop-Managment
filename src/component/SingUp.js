@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useGlobalContext } from '../hook/AccountContext';
+import { useNavContext } from '../hook/DrawerContext';
 import classes from '../sass/Login.module.scss';
 import Button from './Button';
 import TextInput from './TextInput';
@@ -15,6 +16,7 @@ const SingUp = () => {
   const [loading, setLoading] = useState(false);
   //form accountContext
   const { signupFun } = useGlobalContext();
+  const { accountDrawer, setAccountDrawer } = useNavContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +29,7 @@ const SingUp = () => {
       setLoading(true);
 
       await signupFun(email, password, userName);
+      setAccountDrawer(!accountDrawer);
     } catch (error) {
       setLoading(false);
       setError(`Something error`);
