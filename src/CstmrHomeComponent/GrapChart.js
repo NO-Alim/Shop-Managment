@@ -175,13 +175,16 @@ const GrapChart = ({ height }) => {
             dates.push(
               new Date(
                 new Date().getTime() - (X >= 0 ? I : I - I - I) * 60 * 1000
-              ).toLocaleString()
+              ).toLocaleString('default', {
+                minute: 'numeric',
+              })
             );
           }
           return dates;
         };
 
-        console.log('minutes', timeFrom(11));
+        const x = timeFrom(11);
+        monthLc.push(x);
       } else if (minDate > tenDaysLess) {
         //work for hours
 
@@ -201,13 +204,16 @@ const GrapChart = ({ height }) => {
             dates.push(
               new Date(
                 new Date().getTime() - (X >= 0 ? I : I - I - I) * 60 * 60 * 1000
-              ).toLocaleString()
+              ).toLocaleString('default', {
+                hour: 'numeric',
+              })
             );
           }
           return dates;
         };
 
-        console.log(timeFrom(11));
+        const x = timeFrom(11);
+        monthLc.push(x);
       } else if (minDate > tenMonthLess) {
         //work for days
         var timeFrom = (X) => {
@@ -220,7 +226,6 @@ const GrapChart = ({ height }) => {
               ).toLocaleString('default', {
                 day: '2-digit',
                 month: 'short',
-                year: 'numeric',
               })
             );
           }
