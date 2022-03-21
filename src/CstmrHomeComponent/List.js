@@ -20,12 +20,21 @@ const customStyles = {
 };
 
 const List = () => {
-  const [modalIsOpen, setIsOpen] = useState(false);
-  const [currentItem, setCurrentItem] = useState();
+  // const [modalIsOpen, setIsOpen] = useState(false);
+  // const [currentItem, setCurrentItem] = useState();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [postPerPage, setPostPerPage] = useState(10);
-  const { data, Delete, checkedItems, setCheckedItems } = useGlobalContext();
+  const {
+    data,
+    Delete,
+    checkedItems,
+    setCheckedItems,
+    modalIsOpen,
+    setIsOpen,
+    currentItem,
+    setCurrentItem,
+  } = useGlobalContext();
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;

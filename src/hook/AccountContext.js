@@ -32,6 +32,9 @@ const AppProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [checkedItems, setCheckedItems] = useState([]);
   const [duration, setDuration] = useState();
+  //for list and listHeader
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [currentItem, setCurrentItem] = useState();
 
   const db = getFirestore();
   const auth = getAuth();
@@ -238,6 +241,10 @@ const AppProvider = ({ children }) => {
         queryData,
         duration,
         setDuration,
+        modalIsOpen,
+        setIsOpen,
+        currentItem,
+        setCurrentItem,
       }}
     >
       {children}

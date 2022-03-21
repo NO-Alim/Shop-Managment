@@ -11,7 +11,7 @@ const Header = () => {
   ];
 
   const [selectedOption, setSelectedOption] = useState(options[2]);
-  const { setDuration } = useGlobalContext();
+  const { setDuration, currentUser } = useGlobalContext();
 
   const handleSelect = async (e) => {
     setSelectedOption(e);
@@ -32,7 +32,7 @@ const Header = () => {
     <>
       <header className={classes.header}>
         <div className={classes.shopBranding}>
-          <h2>Good Morning, Arafat</h2>
+          <h2>Hey {currentUser.displayName} hope you are well.</h2>
           <span>Here's What's happening With Your Store Today.</span>
         </div>
         <div className={classes.selectDuration}>

@@ -13,10 +13,10 @@ const Hero = () => {
         <main className={`sectionContainer ${classes.main}`}>
           <h1>Shop Manager</h1>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia
-            corporis molestias recusandae dolore sit magni perferendis ipsa.
-            Exercitationem, atque perspiciatis beatae praesentium sint ipsa
-            aspernatur.
+            shop Manager, solution of your Shop management. you can keep your
+            shop data in here, it's free and 100% secure. so let's get our
+            services. Before jump in to add data you need to SingUp or if you
+            have already SingUp let's login.
           </p>
           <div className={classes.btnGroup}>
             <button

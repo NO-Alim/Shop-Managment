@@ -116,3 +116,41 @@
     }
   }
 }
+
+.searchResult {
+  padding: $pm-1 $pm-5;
+  margin-bottom: $pm-2;
+
+  @media (max-width: $small) {
+    padding: $pm-1;
+  }
+}
+
+.searchUl {
+  display: flex;
+  flex-direction: column;
+  gap: $pm-1;
+  padding: 0;
+}
+
+.searchLi {
+  padding: 5px $pm-5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &:nth-child(odd) {
+    background-color: rgba($color-brand, $alpha: 0.1);
+  }
+  &:nth-child(even) {
+    background-color: rgba($color-brand, $alpha: 0.3);
+  }
+
+  @media (max-width: $small) {
+    padding: 5px $pm-1;
+  }
+}
+
+.btnGroup {
+  display: flex;
+  gap: 10px;
+}

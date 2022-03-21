@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../component/Footer';
 import Hero from '../component/Hero';
 import Nav from '../component/Nav';
 import { useGlobalContext } from '../hook/AccountContext';
@@ -18,6 +19,7 @@ const Home = () => {
           <NavProvider>
             <Nav />
             {currentUser ? <CustomerHome /> : <Hero />}
+            <Footer />
           </NavProvider>
         </>
       )}
