@@ -150,18 +150,99 @@ const GrapChart = ({ height }) => {
       const minDate = Math.min.apply(
         null,
         data.map((item) => {
-          return item.time.seconds * 1000;
+          return item.time.seconds;
         })
       );
 
-      const tenMonthLess = new Date().setMonth(today.getMonth() - 6);
-      const tenDaysLess = new Date().setDate(today.getDate() - 10);
-      const tenHoursLess = new Date().setHours(today.getHours() - 10);
-      const tenMinutesLess = new Date().setMinutes(today.getMinutes() - 10);
+      // devided by 1000 for milisec to sec
+      const tenMonthLess = new Date().setMonth(today.getMonth() - 10) / 1000;
+      const tenDaysLess = new Date().setDate(today.getDate() - 10) / 1000;
+      const tenHoursLess = new Date().setHours(today.getHours() - 10) / 1000;
+      const tenMinutesLess =
+        new Date().setMinutes(today.getMinutes() - 10) / 1000;
 
-      const x = today.getTime();
+      //-----------------------------don't need to change data before this line
 
-      console.log(x - minDate);
+      var d;
+      var monthLc = [];
+
+      if (minDate > tenHoursLess) {
+        //work for minutes
+
+        var timeFrom = (X) => {
+          var dates = [];
+          for (let I = 1; I < Math.abs(X); I++) {
+            dates.push(
+              new Date(
+                new Date().getTime() - (X >= 0 ? I : I - I - I) * 60 * 1000
+              ).toLocaleString()
+            );
+          }
+          return dates;
+        };
+
+        console.log('minutes', timeFrom(11));
+      } else if (minDate > tenDaysLess) {
+        //work for hours
+
+        // var timeFrom = (X) => {
+        //   var dates = [];
+        //   for (let I = 1; I < Math.abs(X); I++) {
+        //     dates.push(
+        //       new Date(today.getTime() - 1000 * 60 * 60 * I).toLocaleString()
+        //     );
+        //   }
+        //   return dates;
+        // };
+
+        var timeFrom = (X) => {
+          var dates = [];
+          for (let I = 1; I < Math.abs(X); I++) {
+            dates.push(
+              new Date(
+                new Date().getTime() - (X >= 0 ? I : I - I - I) * 60 * 60 * 1000
+              ).toLocaleString()
+            );
+          }
+          return dates;
+        };
+
+        console.log(timeFrom(11));
+      } else if (minDate > tenMonthLess) {
+        //work for days
+        var timeFrom = (X) => {
+          var dates = [];
+          for (let I = 1; I < Math.abs(X); I++) {
+            dates.push(
+              new Date(
+                new Date().getTime() -
+                  (X >= 0 ? I : I - I - I) * 24 * 60 * 60 * 1000
+              ).toLocaleString('default', {
+                day: '2-digit',
+                month: 'short',
+                year: 'numeric',
+              })
+            );
+          }
+          return dates;
+        };
+        const x = timeFrom(11);
+        monthLc.push(x);
+      } else {
+        //work for month
+        for (var i = 10; i > 0; i -= 1) {
+          d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+
+          const monthYear = d.toLocaleString('default', {
+            month: 'short',
+            year: '2-digit',
+          });
+
+          monthLc.push(monthYear);
+        }
+      }
+
+      console.log(monthLc);
     }
   }, [data]);
   return (
