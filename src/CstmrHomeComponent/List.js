@@ -144,7 +144,7 @@ const List = () => {
         className={classes.modal}
       >
         <div className={classes.content}>
-          <EditModal currentItem={currentItem} />
+          <EditModal currentItem={currentItem} closeModal={closeModal} />
         </div>
       </Modal>
     </div>
