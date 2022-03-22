@@ -79,70 +79,70 @@ const GrapChart = ({ height }) => {
     },
   };
 
-  useEffect(() => {
-    if (data && data.length > 0) {
-      var today = new Date();
+  // useEffect(() => {
+  //   if (data && data.length > 0) {
+  //     var today = new Date();
 
-      var d;
-      var monthLc = [];
-      for (var i = 10; i > 0; i -= 1) {
-        //here should be latest seconds instade of today.
-        d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+  //     var d;
+  //     var monthLc = [];
+  //     for (var i = 10; i > 0; i -= 1) {
+  //       //here should be latest seconds instade of today.
+  //       d = new Date(today.getFullYear(), today.getMonth() - i, 1);
 
-        const monthYear = d.toLocaleString('default', {
-          month: 'short',
-          year: '2-digit',
-        });
+  //       const monthYear = d.toLocaleString('default', {
+  //         month: 'short',
+  //         year: '2-digit',
+  //       });
 
-        monthLc.push(monthYear);
-      }
+  //       monthLc.push(monthYear);
+  //     }
 
-      setMonth(monthLc.reverse());
-    }
-  }, [data]);
-  useEffect(() => {
-    let expenseData = [];
-    let incomeData = [];
+  //     setMonth(monthLc.reverse());
+  //   }
+  // }, [data]);
+  // useEffect(() => {
+  //   let expenseData = [];
+  //   let incomeData = [];
 
-    //map month
-    month.map((str) => {
-      //not exicuted
-      //looping data if include str
-      const xx = data.filter(
-        (obj) =>
-          new Date(obj.time.seconds * 1000).toLocaleString('default', {
-            month: 'short',
-            year: '2-digit',
-          }) === str
-      );
+  //   //map month
+  //   month.map((str) => {
+  //     //not exicuted
+  //     //looping data if include str
+  //     const xx = data.filter(
+  //       (obj) =>
+  //         new Date(obj.time.seconds * 1000).toLocaleString('default', {
+  //           month: 'short',
+  //           year: '2-digit',
+  //         }) === str
+  //     );
 
-      //console.log(xx);
-      if (xx && xx.length > 0) {
-        //not exicuted
-        //console.log(xx);
-        const filterIncome = xx.filter((obj) => obj.income);
-        const filterExpense = xx.filter((obj) => !obj.income);
-        const income = filterIncome
-          .map((item) => parseFloat(item.price))
-          .reduce((prev, curr) => prev + curr, 0);
+  //     //console.log(xx);
+  //     if (xx && xx.length > 0) {
+  //       //not exicuted
+  //       //console.log(xx);
+  //       const filterIncome = xx.filter((obj) => obj.income);
+  //       const filterExpense = xx.filter((obj) => !obj.income);
+  //       const income = filterIncome
+  //         .map((item) => parseFloat(item.price))
+  //         .reduce((prev, curr) => prev + curr, 0);
 
-        const expense = filterExpense
-          .map((item) => parseFloat(item.price))
-          .reduce((prev, curr) => prev + curr, 0);
+  //       const expense = filterExpense
+  //         .map((item) => parseFloat(item.price))
+  //         .reduce((prev, curr) => prev + curr, 0);
 
-        //push every income & expense data to
-        incomeData.push(income);
-        expenseData.push(expense);
-      } else {
-        //if there is no data on this month let add 0
-        incomeData.push(0);
-        expenseData.push(0);
-      }
-    });
+  //       //push every income & expense data to
+  //       incomeData.push(income);
+  //       expenseData.push(expense);
+  //     } else {
+  //       //if there is no data on this month let add 0
+  //       incomeData.push(0);
+  //       expenseData.push(0);
+  //     }
+  //   });
 
-    setSell(incomeData);
-    setCost(expenseData);
-  }, [month]);
+  //   setSell(incomeData);
+  //   setCost(expenseData);
+  // }, [month]);
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -177,6 +177,7 @@ const GrapChart = ({ height }) => {
                 new Date().getTime() - (X >= 0 ? I : I - I - I) * 60 * 1000
               ).toLocaleString('default', {
                 minute: 'numeric',
+                hour: 'numeric',
               })
             );
           }
@@ -185,6 +186,42 @@ const GrapChart = ({ height }) => {
 
         const x = timeFrom(11);
         monthLc.push(x);
+        setMonth(x.reverse());
+
+        //-----------------
+        let expenseData = [];
+        let incomeData = [];
+
+        x.map((str) => {
+          const xx = data.filter(
+            (obj) =>
+              new Date(obj.time.seconds * 1000).toLocaleString('default', {
+                minute: 'numeric',
+                hour: 'numeric',
+              }) === str.toString()
+          );
+
+          if (xx && xx.length > 0) {
+            const filterIncome = xx.filter((obj) => obj.income);
+            const filterExpense = xx.filter((obj) => !obj.income);
+            const income = filterIncome
+              .map((item) => parseFloat(item.price))
+              .reduce((prev, curr) => prev + curr, 0);
+
+            const expense = filterExpense
+              .map((item) => parseFloat(item.price))
+              .reduce((prev, curr) => prev + curr, 0);
+            incomeData.push(income);
+            expenseData.push(expense);
+          } else {
+            incomeData.push(0);
+            expenseData.push(0);
+          }
+
+          setSell(incomeData);
+          setCost(expenseData);
+        });
+        console.log('minutes');
       } else if (minDate > tenDaysLess) {
         //work for hours
 
@@ -214,6 +251,41 @@ const GrapChart = ({ height }) => {
 
         const x = timeFrom(11);
         monthLc.push(x);
+        setMonth(x.reverse());
+
+        //-----------------
+        let expenseData = [];
+        let incomeData = [];
+
+        x.map((str) => {
+          const xx = data.filter(
+            (obj) =>
+              new Date(obj.time.seconds * 1000).toLocaleString('default', {
+                hour: 'numeric',
+              }) === str.toString()
+          );
+
+          if (xx && xx.length > 0) {
+            const filterIncome = xx.filter((obj) => obj.income);
+            const filterExpense = xx.filter((obj) => !obj.income);
+            const income = filterIncome
+              .map((item) => parseFloat(item.price))
+              .reduce((prev, curr) => prev + curr, 0);
+
+            const expense = filterExpense
+              .map((item) => parseFloat(item.price))
+              .reduce((prev, curr) => prev + curr, 0);
+            incomeData.push(income);
+            expenseData.push(expense);
+          } else {
+            incomeData.push(0);
+            expenseData.push(0);
+          }
+
+          setSell(incomeData);
+          setCost(expenseData);
+        });
+        console.log('hours');
       } else if (minDate > tenMonthLess) {
         //work for days
         var timeFrom = (X) => {
@@ -233,21 +305,112 @@ const GrapChart = ({ height }) => {
         };
         const x = timeFrom(11);
         monthLc.push(x);
+        setMonth(x.reverse());
+
+        //-----------------
+        let expenseData = [];
+        let incomeData = [];
+
+        x.map((str) => {
+          const xx = data.filter(
+            (obj) =>
+              new Date(obj.time.seconds * 1000).toLocaleString('default', {
+                day: '2-digit',
+                month: 'short',
+              }) === str.toString()
+          );
+
+          if (xx && xx.length > 0) {
+            const filterIncome = xx.filter((obj) => obj.income);
+            const filterExpense = xx.filter((obj) => !obj.income);
+            const income = filterIncome
+              .map((item) => parseFloat(item.price))
+              .reduce((prev, curr) => prev + curr, 0);
+
+            const expense = filterExpense
+              .map((item) => parseFloat(item.price))
+              .reduce((prev, curr) => prev + curr, 0);
+            incomeData.push(income);
+            expenseData.push(expense);
+          } else {
+            incomeData.push(0);
+            expenseData.push(0);
+          }
+
+          setSell(incomeData);
+          setCost(expenseData);
+        });
+
+        console.log('days');
       } else {
         //work for month
-        for (var i = 10; i > 0; i -= 1) {
-          d = new Date(today.getFullYear(), today.getMonth() - i, 1);
 
-          const monthYear = d.toLocaleString('default', {
-            month: 'short',
-            year: '2-digit',
-          });
+        var timeFrom = (X) => {
+          var dates = [];
+          for (var i = 10; i > 0; i -= 1) {
+            d = new Date(today.getFullYear(), today.getMonth() - i, 1);
 
-          monthLc.push(monthYear);
-        }
+            const monthYear = d.toLocaleString('default', {
+              month: 'short',
+              year: '2-digit',
+            });
+
+            dates.push(monthYear);
+          }
+          return dates;
+        };
+
+        const x = timeFrom(11);
+        monthLc.push(x);
+        setMonth(x.reverse());
+
+        //-----------------
+        let expenseData = [];
+        let incomeData = [];
+
+        x.map((str) => {
+          const xx = data.filter(
+            (obj) =>
+              new Date(obj.time.seconds * 1000).toLocaleString('default', {
+                month: 'short',
+                year: '2-digit',
+              }) === str.toString()
+          );
+
+          if (xx && xx.length > 0) {
+            const filterIncome = xx.filter((obj) => obj.income);
+            const filterExpense = xx.filter((obj) => !obj.income);
+            const income = filterIncome
+              .map((item) => parseFloat(item.price))
+              .reduce((prev, curr) => prev + curr, 0);
+
+            const expense = filterExpense
+              .map((item) => parseFloat(item.price))
+              .reduce((prev, curr) => prev + curr, 0);
+            incomeData.push(income);
+            expenseData.push(expense);
+          } else {
+            incomeData.push(0);
+            expenseData.push(0);
+          }
+
+          setSell(incomeData);
+          setCost(expenseData);
+        });
+
+        console.log('month');
+
+        // for (var i = 10; i > 0; i -= 1) {
+        //   d = new Date(today.getFullYear(), today.getMonth() - i, 1);
+
+        //   const monthYear = d.toLocaleString('default', {
+        //     month: 'short',
+        //     year: '2-digit',
+        //   });
+
+        //  return monthYear;
+        // }
       }
-
-      console.log(monthLc);
     }
   }, [data]);
   return (
